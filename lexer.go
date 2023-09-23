@@ -23,48 +23,59 @@ func (l *Lexer) readChar(){
 	l.readPosition += 1
 }
 func TestNextToken( t *testing.T){
-	input := `THOU x = 5;
-	THOU y = 10;
-	THOU add = THOU(x, y) {
-		RETURN x + y;
+	input := `thou x = 5;
+	thou y = 10;
+	thou add = thou(x, y) {
+		return x + y;
 	};
-	THOU result = add(x, y);
-	SAYETH(result);
+	thou result = add(x, y);
+	sayeth(result);
 	`
 	tests:= []struct{
 		expectedType token.TokenType
 		expectedLiteral string
 	}{
-		{token.DECLARE, "THOU"},
-		{token.PRINT, "SAYETH"},
-		{TOKEN.INPUT, "LISTEN"},
-		{token.RETURN, "RETURN"},
-		{token.IF, "IF"},
-		{token.ELSE, "ELSE"},
-		{token.ELSEIF, "ELSEIF"},
-		{token.FOR, "FOR"},
-		{token.COMMA, ','},
-		{token.SEMICOLON, ";"},
-		{token.COLON, ":"},
-		{token.LPAREN, "("},
-		{token.RPAREN, ")"},
-		{token.LBRACE, "{"},
-		{token.RBRACE, "}"},
-		{token.LBRACKET, "["},
-		{token.RBRACKET, "]"},
+		{token.DECLARE, "thou"},
+		{token.IDENT, "x"},
 		{token.ASSIGN, "="},
-		{token.PLUS, "+"},
-		{token.MINUS, "-"},
-		{token.MULTIPLY, "*"},
-		{token.DIVIDE, "/"},
-		{token.LESSTHAN, "<"},
-		{token.GREATERTHAN, ">"},
-		{token.EQUAL, "=="},
-		{token.NOTEQUAL, "!="},
-		{token.LEQUAL, "<="},
-		{token.GEQUAL, ">="},
-		//identifiers
-		//integers
+		{token.INT,"5"},
+		{token.SEMICOLON,";"},
+		{token.DECLARE, "thou"},
+		{token.IDENT, "y"},
+		{token.ASSIGN, "="},
+		{token.INT,"10"},
+		{token.SEMICOLON,";"},
+		{token.DECLARE,"thou"},
+		{token.IDENT,"add"},
+		{token.ASSIGN,"="},
+		{token.DECLARE,"thou"},
+		{token.LPAREN,"("},
+		{token.IDENT, "x"},
+		{token.COMMA, ","},
+		{token.IDENT, "y"},
+		{token.RPAREN,")"},
+		{token.LBRACE,"{"},
+		{token.RETURN,"return"},
+		{token.IDENT,"x"},
+		{token.PLUS,"+"},
+		{token.IDENT,"y"},
+		{token.SEMICOLON,";"},
+		{token.RBRACE,"}"},
+		{token.SEMICOLON,";"},
+		{token.DECLARE, "thou"},
+		{token.IDENT, "result"},
+		{token.ASSIGN, "="},
+		{token.IDENT,"add"}
+		{token.LPAREN,"("},
+		{token.IDENT, "x"},
+		{token.COMMA, ","},
+		{token.IDENT, "y"},
+		{token.RPAREN,")"},
+		{token.PRINT,"sayenth"},
+		{token.LPAREN,"("},
+		{token.IDENT,"result"},
+		{token.RPAREN,")"},
+		{token.SEMICOLON,";"},
 	}
 	l:=New(input)
 
