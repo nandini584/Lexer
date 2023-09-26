@@ -1,5 +1,17 @@
 package main 
-import "fmt"
+import ("fmt"
+		"os"
+		"os/user"
+		
+	)
 func main(){
-	fmt.Println("Hello World")
+	user,err:=user.Current()
+	if err!=nil{
+		panic(err)
+	}
+	fmt.Println("Hello "+user.Name+"!")
+	fmt.Println("This is the Shakespeare programming language!")
+	fmt.Println("Feel free to type in commands")
+	repl.Start(os.Stdin, os.Stdout)
+
 }

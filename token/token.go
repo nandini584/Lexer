@@ -4,6 +4,22 @@ type Token struct {
 	Type TokenType   //tokentype's type is string 
 	Literal string
 }
+var keywords = map[string]TokenType{
+	"thou": DECLARE,
+	"sayeth": PRINT,
+	"listen": INPUT,
+	"return": RETURN,
+	"if": IF,
+	"else": ELSE,
+	"elseif": ELSEIF,
+	"for": FOR,
+}
+func LookupIdent(ident string) TokenType{
+	if tok, ok := keywords[ident]; ok{
+		return tok
+	}
+	return IDENT
+}
 const (
 	//Misc
 	ILLEGAL="ILLEGAL"
@@ -30,7 +46,8 @@ const (
 	NOTEQUAL="!="
     LEQUAL="<="
 	GEQUAL=">="
-
+	NOT="!"
+	
 	// Delimiters
 	COMMA=","
 	SEMICOLON=";"
